@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>工厂模式</title>
     <script>
+        // 简单工厂
         function User(name, age, career, work) {
             this.name = name
             this.age = age
@@ -31,6 +32,68 @@
 
         const user = new Factory('lilei', 20, 'coder')
         console.log(user)
+
+
+        // 抽象工厂
+         class MoilePhoneFactory {
+            createOS() {
+                throw new Error("抽象工厂方法不允许直接调用，你需要将我重写！");
+            }
+            createHardWare() {
+                throw new Error("抽象工厂方法不允许直接调用，你需要将我重写！");
+            }
+         }
+
+         class FakeStarFactory extends MoilePhoneFactory {
+            createOS() {
+                return new AndroidOS()
+            }
+            createHardWare() {
+                return new QualcommHardWare()
+            }
+         }
+
+         class OS{
+            controlHardWare() {
+                throw new Error('抽象产品方法不允许直接调用，你需要将我重写！');
+            }
+         }
+
+         class AndroidOS extends OS {
+            controlHardWare() {
+                console.log('我会用安卓的方式去操作硬件')
+            }
+         }
+
+         class AppleOS extends OS {
+            controlHardWare() {
+                console.log('我会用🍎的方式去操作硬件')
+            }
+         }
+
+         class HardWare {
+            operateByOrder() {
+                throw new Error('抽象产品方法不允许直接调用，你需要将我重写！');
+            }
+         }
+
+         class QualcommHardWare extends HardWare {
+            operateByOrder() {
+                console.log('我会用高通的方式去操作硬件')
+            }
+         }
+
+         class MiWare extends HardWare {
+            operateByOrder() {
+                console.log('我会用小米的方式去运转')
+            }
+        }
+
+        const myPhone = new FakeStarFactory()
+        const myOS = myPhone.createOS()
+        const myHardWare = myPhone.createHardWare()
+        myOS.controlHardWare()
+        myHardWare.operateByOrder()
     </script>
 </head>
 <body>
