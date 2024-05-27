@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单例模式</title>
+    <script>
+        class SingleDog {
+            show() {
+                console.log('我是一个单例对象')
+            }
+
+            static getInstance() {
+                if (!SingleDog.getInstance) {
+                    SingleDog.intance = new SingleDog()
+                }
+                return SingleDog.intance
+            }
+        }
+        const s1 = SingleDog.getInstance()
+        const s2 = SingleDog.getInstance()
+        // true
+        console.log(s1 === s2)
+
+        SingleDog.instance = (function() {
+            let instance = null
+            return function () {
+                if (!instance) {
+                    instance = new SingleDog()
+                }
+                return instance
+            }
+        })()
+
+        const s5 = SingleDog.instance()
+        const s6 = SingleDog.instance()
+        // true
+        console.log(s5 === s6)
+
+        class SingleDog2 {
+            constructor () {
+                if (!SingleDog2.instance) {
+                    SingleDog2.instance = this
+                }
+                return SingleDog2.instance
+            }
+        }
+
+        const s3 = new SingleDog2()
+        const s4 = new SingleDog2()
+        // true
+        console.log(s3 === s4)
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
