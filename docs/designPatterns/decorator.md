@@ -188,3 +188,4 @@ const button = new Button()
 button.onClick()
 ```
 
+注：以上代码直接放进浏览器/Node 中运行会报错，因为浏览器和 Node 目前都不支持装饰器语法，需要大家安装 Babel 进行转码
